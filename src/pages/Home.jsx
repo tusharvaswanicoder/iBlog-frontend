@@ -1,6 +1,7 @@
 import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -20,7 +21,9 @@ const Home = () => {
                 >
                     Create A Unique Blog Today
                 </Box>
-                <Button colorScheme="orange">Create Your Blog</Button>
+                <NavLink to="/signup">
+                    <Button colorScheme="orange">Create Your Blog</Button>
+                </NavLink>
             </Box>
             <Player
                 autoplay
