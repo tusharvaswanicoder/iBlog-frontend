@@ -74,7 +74,7 @@ const CreateBlog = () => {
                 border="none"
                 m="40px 0px"
                 height="auto"
-                fontSize="45px"
+                fontSize={["20px", "30px", "45px"]}
                 fontWeight={600}
                 placeholder="Enter blog title here..."
                 onChange={({ target }) => setTitle(target.value)}

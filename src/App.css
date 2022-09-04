@@ -22,3 +22,27 @@ body {
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
+.sidebar-drawer-button {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .sidebar-container {
+        display: none !important;
+    }
+
+    .sidebar {
+        border-right: none !important;
+    }
+
+    .sidebar-drawer-button {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .blogs-search {
+        flex-direction: column;
+    }
+}

@@ -10,9 +10,12 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+// import DatalistInput from "react-datalist-input";
 import { BiSearch } from "react-icons/bi";
 import { FiSearch } from "react-icons/fi";
 import Blog from "../components/Blog";
+// import "react-datalist-input/dist/styles.css";
+import ReactSearchBox from "react-search-box";
 
 const MyBlogs = () => {
     const [recommendations, setRecommendations] = useState([]);
@@ -71,7 +74,7 @@ const MyBlogs = () => {
             }
             timer = setTimeout(() => {
                 getRecommendations();
-            }, 100);
+            }, 300);
         };
     };
     useEffect(() => {
@@ -79,7 +82,7 @@ const MyBlogs = () => {
     }, [filter]);
     return (
         <Box>
-            <Flex gap="20px">
+            <Flex gap="20px" className="blogs-search">
                 <Select
                     variant="outline"
                     _focusVisible={{ borderColor: "#DD6B20" }}
@@ -94,41 +97,24 @@ const MyBlogs = () => {
                     <option value="oldest">Oldest</option>
                 </Select>
                 <Box width="100%" position="relative">
-                    <InputGroup>
-                        <InputLeftElement
-                            pointerEvents="none"
-                            children={<BiSearch />}
-                        />
-                        <Input
-                            type="text"
-                            value={key}
-                            onChange={searchText()}
-                            placeholder="Search Blogs"
-                            _focusVisible={{ borderColor: "#DD6B20" }}
-                        />
-                    </InputGroup>
-                    {recommendations.length > 0 && (
-                        <VStack
-                            pos="absolute"
-                            w="100%"
-                            bg="#fff"
-                            border="1px solid rgba(0, 0, 0, 0.5)"
-                            borderRadius="4px 4px"
-                            divider={<StackDivider />}
-                        >
-                            {recommendations.map((recommendation, index) => (
-                                <Box
-                                    w="100%"
-                                    cursor="pointer"
-                                    p="5px 20px"
-                                    onClick={() => setKey(recommendation)}
-                                    key={index}
-                                >
-                                    {recommendation}
-                                </Box>
-                            ))}
-                        </VStack>
-                    )}
+                    <Input
+                        list="blogs"
+                        name="blog"
+                        id="blog"
+                        onChange={searchText()}
+                        placeholder="Search Blogs"
+                        _focusVisible={{ borderColor: "#DD6B20" }}
+                        value={key}
+                    />
+                    <datalist id="blogs">
+                        {recommendations.map((recommendation, index) => (
+                            <option
+                                key={index}
+                                value={recommendation}
+                                onClick={() => setKey(recommendation)}
+                            />
+                        ))}
+                    </datalist>
                 </Box>
                 <Button
                     onClick={getBlogs}

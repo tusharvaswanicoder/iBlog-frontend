@@ -20,10 +20,12 @@ const SideBar = () => {
     ];
     return (
         <VStack
+            className="sidebar"
             borderRight="1px solid #e2e8f0"
             divider={<StackDivider />}
             spacing="30px"
             w="250px"
+            h="100%"
             p="20px"
         >
             <Box>
