@@ -1,6 +1,12 @@
 import {
     Box,
     Flex,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
     Popover,
     PopoverArrow,
     PopoverBody,
@@ -10,6 +16,8 @@ import {
     PopoverTrigger,
     Skeleton,
     SkeletonCircle,
+    Button,
+    useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineShareAlt } from "react-icons/ai";
@@ -19,6 +27,7 @@ import { FaTwitter, FaFacebook, FaEnvelope, FaLinkedin } from "react-icons/fa";
 import { ShareButtonRectangle, ShareBlockStandard } from "react-custom-share";
 
 const Blog = ({ showSkeleton, data }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const shareBlockProps = {
         url: "",
         button: ShareButtonRectangle,
@@ -77,31 +86,32 @@ const Blog = ({ showSkeleton, data }) => {
                         </Box>
                     </NavLink>
                 )}
-
-                <Box mt="20px" position="relative">
-                    {/* <Popover>
-                        <PopoverTrigger>
-                            <Box>
-                                <AiOutlineShareAlt
-                                    cursor={
-                                        showSkeleton ? "default" : "pointer"
-                                    }
-                                />
-                            </Box>
-                        </PopoverTrigger>
-                        <PopoverContent>
-                            <PopoverArrow />
-                            <PopoverCloseButton />
-                            <PopoverHeader>Share With World!</PopoverHeader>
-                            <PopoverBody>
-                                <Flex gap="10px">
-                                    <ShareBlockStandard {...shareBlockProps} />
-                                </Flex>
-                            </PopoverBody>
-                        </PopoverContent>
-                    </Popover> */}
+                <Box mt="16px">
+                    <AiOutlineShareAlt
+                        onClick={showSkeleton ? () => {} : onOpen}
+                        cursor={showSkeleton ? "default" : "pointer"}
+                    />
                 </Box>
             </Box>
+            <Modal isOpen={isOpen} isCentered>
+                <ModalOverlay onClick={onClose} />
+                <ModalContent>
+                    <ModalHeader>Share With World!</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Flex gap="10px">
+                            <ShareBlockStandard {...shareBlockProps} />
+                            <Button
+                                onClick={() =>
+                                    navigator.clipboard.writeText(``)
+                                }
+                            >
+                                Copy
+                            </Button>
+                        </Flex>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 };
